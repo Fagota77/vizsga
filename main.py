@@ -15,11 +15,17 @@ class EgyagyasSzoba(Szoba):
         self.klima = klima
         super().__init__(ar, szobaszam)
 
+    def __str__(self):
+        return f'Szobaszám: {self.szobaszam}, Ár: {self.ar}, Klima: {self.klima}'
+
 
 class KetagyasSzoba(Szoba):
     def __init__(self, ar, szobaszam, kilatas):
         self.kilatas = kilatas
         super().__init__(ar, szobaszam)
+
+    def __str__(self):
+        return f'Szobaszám: {self.szobaszam}, Ár: {self.ar}, Kilátás: {self.kilatas}'
 
         
 class Szalloda:
@@ -45,8 +51,8 @@ class Foglalas:
         self.szoba = szoba
 
 
-sz1 = EgyagyasSzoba('50000 Ft', 9, False)
-sz2 = EgyagyasSzoba('96000 Ft', 17, True)
+sz1 = EgyagyasSzoba('50000 Ft', 9, 'Nincs')
+sz2 = EgyagyasSzoba('96000 Ft', 17, 'van')
 sz3 = KetagyasSzoba('30000 Ft', 15, 'Park')
 sz4 = KetagyasSzoba('40000 Ft', 19, 'Tengerparti')
 
@@ -72,9 +78,10 @@ while True:
 
                 for szoba in szalloda.szobak:
                     if szoba.szobaszam == szobaszam:
-                        foglalas_datum = input('Dátum: ')
-                        szalloda.foglal(szoba, foglalas_datum)
-                        break
+                        if szoba not in szalloda.szobak:
+                            foglalas_datum = input('Dátum: ')
+                            szalloda.foglal(szoba, foglalas_datum)
+                            break
             except ValueError:
                 print("A megadott érték nem szám")
 
